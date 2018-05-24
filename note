@@ -1,0 +1,40 @@
+build armv7 library
+
+$ cd <ncnn-root-dir>
+$ mkdir -p build-android-armv7
+$ cd build-android-armv7
+$ cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+    -DANDROID_ABI="armeabi-v7a" -DANDROID_ARM_NEON=ON \
+    -DANDROID_PLATFORM=android-14 ..
+$ make -j4
+$ make install
+
+当编译不通过时，切换
+$ cmake -DCMAKE_TOOLCHAIN_FILE=../android.toolchain.cmake \
+    -DANDROID_ABI="armeabi-v7a" -DANDROID_ARM_NEON=ON \
+    -DANDROID_PLATFORM=android-14 ..
+
+pick build-android-armv7/install folder for further jni usage
+build aarch64 library
+
+$ cd <ncnn-root-dir>
+$ mkdir -p build-android-aarch64
+$ cd build-android-aarch64
+$ cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+    -DANDROID_ABI="arm64-v8a" \
+    -DANDROID_PLATFORM=android-21 ..
+$ make -j4
+$ make install
+
+当编译不通过时，切换
+cmake -DCMAKE_TOOLCHAIN_FILE=../android.toolchain.cmake \
+    -DANDROID_ABI="arm64-v8a" \
+    -DANDROID_PLATFORM=android-21 ..
+错误总结
+CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+查找ndk路径是否配对
+
+cmake版本号特别注意
+
+pick build-android-aarch64/install folder for further jni usage
